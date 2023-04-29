@@ -40,25 +40,8 @@ export default function Contacts() {
         })
     }
 
-    const newContact = {
-        name: 'Aarón Díaz',
-        email: '1234@gmail.com',
-        phone: '666333111'
-    }
-
-    const updatedContact = {
-        name: 'Aarón Perez',
-        email: '4321@gmail.com',
-        phone: '666333111'
-    }
-
-    console.log(contacts);
-
+    
     return (
-        <div>
-            <button onClick={() => handleCreateContact(newContact, nextId)}>Test create</button>
-            <button onClick={() => handleUpdateContact(updatedContact, 11)}>Test update</button>
-            <button onClick={() => handleDeleteContact(11)}>Test delete</button>
-        </div>
+        <p>Contacts</p>
     );
 }
