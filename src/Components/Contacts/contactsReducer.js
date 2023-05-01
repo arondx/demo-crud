@@ -10,26 +10,24 @@ export default function contactsReducer(contacts, action) {
                     phone: action.contact.phone
 
                 }
-            ]
+            ];
         }
         case 'updated': {
+            alert('ddddssss')
             return contacts.map(c => {
                 if(c.id === action.id){
-                    return {
-                        id: action.id,
-                        ...action.contact
-                    }
+                    return action.contact;
                 }else{
                     return c;
                 }
-            })
+            });
         }
         case 'deleted': {
             return contacts.filter(c => {
                 if(c.id !== action.id){
                     return c;
                 }
-            })
+            });
         }
         default: {
             throw Error('Unknown action: ' + action.type);
