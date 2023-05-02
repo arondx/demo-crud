@@ -1,7 +1,10 @@
 import $ from 'jquery';
-import { useEffect } from 'react';
+import { useEffect, forwardRef } from 'react';
 
-export default function ContactsForm({ onChange, values, isEditing, onAdd, onUpdate}) {
+export const ContactsForm = forwardRef(({ onChange, values, isEditing, onAdd, onUpdate}, ref) => {
+
+    const [ formRef, inputRef] = ref;
+
     const jQueryCode = () =>{
         $(".btn").mouseup(function(){
             $(this).blur();
@@ -13,10 +16,10 @@ export default function ContactsForm({ onChange, values, isEditing, onAdd, onUpd
     });
 
     return (
-        <form>
+        <form ref={formRef}>
             <div className="mb-3">
                 <label htmlFor="name" className="form-label">Name:</label>
-                <input type="text" value={values.name} onChange={onChange} id="name" name="name" className="form-control rounded"/>
+                <input ref={inputRef} type="text" value={values.name} onChange={onChange} id="name" name="name" className="form-control rounded"/>
             </div>
             <div className="mb-3">
                 <label htmlFor="email" className="form-label">Email:</label>
@@ -36,4 +39,4 @@ export default function ContactsForm({ onChange, values, isEditing, onAdd, onUpd
             </button>
         </form>
     );
-}
+});

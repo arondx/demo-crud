@@ -1,4 +1,4 @@
-export default function Tile({values, onEdit, onDelete, isEditing}) {
+export default function Tile({values, onEdit, onEditAnimation, onDelete, isEditing}) {
     return(
         <div class="card">
             <div class="card-body pb-0">
@@ -9,7 +9,7 @@ export default function Tile({values, onEdit, onDelete, isEditing}) {
                 </button>
                 <button type="button" class="btn btn-secondary btn-sm float-end"
                     disabled={isEditing ? true : false}
-                    onClick={() => onEdit(values)}>
+                    onClick={() => {onEdit(values); onEditAnimation()}}>
                     <i class="bi bi-pencil-square" title="Edit"></i>
                 </button>
                 <dl>

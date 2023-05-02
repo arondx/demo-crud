@@ -1,10 +1,8 @@
-import { useReducer } from "react";
+import { useReducer, useState, useRef, useEffect } from "react";
 import { data } from "../../data";
 import contactsReducer from "./contactsReducer";
-import { useState } from "react";
-import ContactsForm from "./ContactsForm";
+import {ContactsForm }from "./ContactsForm";
 import TileList from "./TileList/TileList";
-import Tile from "./TileList/Tile";
 
 const initialContacts = data.map(c => {
     return {
@@ -22,7 +20,22 @@ export default function Contacts() {
         email: "",
         phone: ""
     });
+
+    const formRef = useRef(null);
+    const inputRef = useRef(null);
+
+    function handleOnEditAnimation(){
+        inputRef.current.focus();
+        formRef.current.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+    }
+    
+    const ref = [
+        formRef,
+        inputRef
+    ];
+
     const [isEditing, setIsEditing] = useState(false);
+
     let nextId = contacts[contacts.length-1].id + 1;
     
     function handleCreateContact(){
@@ -84,6 +97,7 @@ export default function Contacts() {
                         onChange={handleChangeContact}
                         onAdd={handleCreateContact}
                         onUpdate={handleUpdateContact}
+                        ref={ref}
                     />
                 </div>
             </div>
@@ -94,6 +108,7 @@ export default function Contacts() {
                         data={contacts}
                         isEditing={isEditing}
                         onEdit={handleEditContact}
+                        onEditAnimation={handleOnEditAnimation}
                         onDelete={handleDeleteContact}>
                     </TileList>
                 </div>
