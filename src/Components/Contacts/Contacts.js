@@ -4,6 +4,7 @@ import contactsReducer from "./contactsReducer";
 import { useState } from "react";
 import ContactsForm from "./ContactsForm";
 import TileList from "./TileList/TileList";
+import Tile from "./TileList/Tile";
 
 const initialContacts = data.map(c => {
     return {
@@ -13,34 +14,6 @@ const initialContacts = data.map(c => {
         phone: c.phone
     };
 });
-
-function Tile({values, onEdit, onDelete, isEditing}) {
-    return(
-        <div class="card shadow-sm bg-light">
-            <div class="card-body pb-0">
-                <button type="button" class="btn btn-secondary btn-sm float-end ms-1"
-                    disabled={isEditing ? true : false}>
-                    <i class="bi bi-trash3" title="Delete"></i>
-                </button>
-                <button type="button" class="btn btn-secondary btn-sm float-end"
-                    disabled={isEditing ? true : false}
-                    onClick={() => onEdit(values)}>
-                    <i class="bi bi-pencil-square" title="Edit"></i>
-                </button>
-                <dl>
-                <dt>Name:</dt>
-                <dd>{values.name}</dd>
-
-                <dt>E-mail:</dt>
-                <dd>{values.email}</dd>
-
-                <dt>Phone:</dt>
-                <dd>{values.phone}</dd>
-                </dl>
-            </div>
-        </div>
-    );
-}
 
 export default function Contacts() {
     const [contacts, dispatch] = useReducer(contactsReducer, initialContacts);
@@ -79,6 +52,7 @@ export default function Contacts() {
     }
 
     function handleDeleteContact(id){
+        alert('in');
         dispatch({
             type: 'deleted',
             id: id
@@ -99,21 +73,10 @@ export default function Contacts() {
         setIsEditing(!isEditing)
     }
 
-    const tiles = contacts.map((c, i) => (
-        <div key={i} className="col-12 col-sm-6 col-lg-4 col-xxl-3">
-            <Tile 
-                values={c}
-                isEditing={isEditing}
-                onEdit={handleEditContact}
-                onDelete={handleDeleteContact}>
-            </Tile>
-        </div>
-    ));
-
     return (
-        <div className="container">
+        <div className="container border rounded mt-2 mb-2">
             
-            <div key="12" className="row justify-content-center border rounded mt-4 mb-4 shadow bg-body">
+            <div key="12" className="row justify-content-center">
                 <div className="col p-3">
                     <ContactsForm
                         values={contact}
@@ -125,14 +88,16 @@ export default function Contacts() {
                 </div>
             </div>
 
-            <div key="13" className="row justify-content-center border rounded shadow mb-4 bg-body">
+            <div key="13" className="row justify-content-center bg-secondary-subtle">
                 <div className="col p-3">
-                    <TileList>
-                        {tiles}
+                    <TileList 
+                        data={contacts}
+                        isEditing={isEditing}
+                        onEdit={handleEditContact}
+                        onDelete={handleDeleteContact}>
                     </TileList>
                 </div>
             </div>
-
         </div>
     );
 }

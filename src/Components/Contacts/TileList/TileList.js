@@ -1,7 +1,21 @@
-export default function TileList({children}) {
+import Tile from "./Tile";
+
+export default function TileList({...props}) {
+    const {data, isEditing, onEdit, onDelete} = props;
+    const tiles = data.map((c, i) => (
+        <div key={i} className="col-12 col-sm-6 col-lg-4 col-xxl-3">
+            <Tile 
+                values={c}
+                isEditing={isEditing}
+                onEdit={onEdit}
+                onDelete={onDelete}>
+            </Tile>
+        </div>
+    ));
+
     return(
         <div className="row g-2">
-            {children}
+            {tiles}
         </div>
     )
 }

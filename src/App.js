@@ -6,8 +6,17 @@ import { useState } from 'react';
 function App() {
   const [name, setName] = useState(false);
   return (
-    <Contacts>
-    </Contacts>
+    <>
+      <header>
+
+      </header>
+      <main>
+        <Contacts/>
+      </main>
+      <footer>
+
+      </footer>
+    </>
   );
 }
 
