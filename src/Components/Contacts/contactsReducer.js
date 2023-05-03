@@ -13,7 +13,6 @@ export default function contactsReducer(contacts, action) {
             ];
         }
         case 'updated': {
-            alert('ddddssss')
             return contacts.map(c => {
                 if(c.id === action.id){
                     return action.contact;

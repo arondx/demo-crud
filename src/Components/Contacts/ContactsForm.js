@@ -1,9 +1,10 @@
 import $ from 'jquery';
-import { useEffect, forwardRef } from 'react';
+import { useEffect, forwardRef, useState } from 'react';
 
-export const ContactsForm = forwardRef(({ onChange, values, isEditing, onAdd, onUpdate}, ref) => {
+export const ContactsForm = forwardRef(({ onChange, values, isEditing, onAdd, onUpdate, onCancel}, ref) => {
 
     const [ formRef, inputRef] = ref;
+    const [toogleModal, setToogleModal] = useState(false);
 
     const jQueryCode = () =>{
         $(".btn").mouseup(function(){
@@ -29,14 +30,21 @@ export const ContactsForm = forwardRef(({ onChange, values, isEditing, onAdd, on
                 <label htmlFor="phone" className="form-label">Phone:</label>
                 <input type="text" value={values.phone} onChange={onChange} id="phone" name="phone" className="form-control rounded"/>
             </div>
-            {isEditing && <button type="button" className="btn btn-primary w-100 mb-1"
-                onClick={() => onUpdate(values.id)}>
-                Update</button>}
-            <button type="button" className="btn btn-primary w-100" 
-                disabled={isEditing ? true : false}
-                onClick={onAdd}>
-                Add
-            </button>
+            {isEditing &&
+                <button type="button" className="btn btn-primary w-100 mb-1"
+                    onClick={() => onUpdate(values.id)}>
+                        Update
+                </button>}
+            {isEditing &&
+                <button type="button" className="btn btn-primary w-100 mb-1"
+                    onClick={onCancel}>
+                        Cancel
+                </button>}
+            {!isEditing &&
+                <button type="button" className="btn btn-primary w-100 mb-1"
+                    onClick={onAdd}>
+                        Add
+                </button>}
         </form>
     );
 });
