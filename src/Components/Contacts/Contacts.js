@@ -35,7 +35,7 @@ export default function Contacts() {
     ];
 
     const [isEditing, setIsEditing] = useState(false);
-   
+
     let nextId = contacts[contacts.length-1].id + 1;
     
     function handleCreateContact(){
@@ -62,10 +62,10 @@ export default function Contacts() {
             email: "",
             phone: ""
         });
-        setIsEditing(!isEditing);
     }
 
     function handleDeleteContact(id){
+        alert('in');
         dispatch({
             type: 'deleted',
             id: id
@@ -85,8 +85,8 @@ export default function Contacts() {
         setContact(contact)
         setIsEditing(!isEditing)
     }
-
-    function handleCancelEditing(){
+    
+    function handleCancelEditContact(){
         setContact({
             name: "",
             email: "",
@@ -96,7 +96,7 @@ export default function Contacts() {
     }
 
     return (
-        <div className="container border rounded mt-2 mb-2">
+        <div className="container border rounded my-5">
             
             <div key="12" className="row justify-content-center">
                 <div className="col p-3">
@@ -106,7 +106,7 @@ export default function Contacts() {
                         onChange={handleChangeContact}
                         onAdd={handleCreateContact}
                         onUpdate={handleUpdateContact}
-                        onCancel={handleCancelEditing}
+                        onCancel={handleCancelEditContact}
                         ref={ref}
                     />
                 </div>
@@ -124,5 +124,7 @@ export default function Contacts() {
                 </div>
             </div>
         </div>
+
+
     );
 }

@@ -1,21 +1,10 @@
-import $ from 'jquery';
 import { useEffect, forwardRef, useState } from 'react';
 
 export const ContactsForm = forwardRef(({ onChange, values, isEditing, onAdd, onUpdate, onCancel}, ref) => {
 
     const [ formRef, inputRef] = ref;
     const [toogleModal, setToogleModal] = useState(false);
-
-    const jQueryCode = () =>{
-        $(".btn").mouseup(function(){
-            $(this).blur();
-        })
-    }
-
-    useEffect(() => {
-        jQueryCode();
-    });
-
+    
     return (
         <form ref={formRef}>
             <div className="mb-3">
