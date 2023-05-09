@@ -1,7 +1,8 @@
 import $ from 'jquery';
+import { ContactsProvider } from './Components/Contacts/ContactsContext';
+import { ContactProvider } from './Components/ContactContext';
 import Contacts from './Components/Contacts/Contacts';
-import TileList from './Components/Contacts/TileList/TileList';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 
 function App() {
@@ -36,7 +37,11 @@ function App() {
       </div>
       </header>
       <main>
-        <Contacts/>
+        <ContactsProvider>
+          <ContactProvider>
+            <Contacts />
+          </ContactProvider>
+        </ContactsProvider>
       </main>
       <footer>
 

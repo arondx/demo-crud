@@ -1,14 +1,13 @@
 import Tile from "./Tile";
+import { useContacts } from "../ContactsContext";
 export default function TileList({...props}) {
-    const {data, isEditing, onEdit, onDelete, onEditAnimation} = props;
-    const tiles = data.map((c, i) => (
+    const contacts = useContacts();
+    const {onEditAnimation} = props;
+    const tiles = contacts.map((c, i) => (
             <Tile
                 key={i}
                 values={c}
-                isEditing={isEditing}
-                onEdit={onEdit}
-                onEditAnimation={onEditAnimation}
-                onDelete={onDelete}>
+                onEditAnimation={onEditAnimation}>
             </Tile>
     ));
 
