@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useReducer } from 'react';
 import { createContext, useContext } from 'react';
 
 const initialState = {
@@ -21,20 +21,22 @@ export function useContactDispatch(){
 
 
 export const ContactProvider = ({ children }) => {
-    const [contact, setContact] = useState({id: "", name: "", email: "", phone: ""});
+    const [state, dispatch] = useReducer(contactReducer, initialState);
     const [isEditing, setIsEditing] = useState(false);
     
-    function reset(){
-        setContact({id: "", name: "", email: "", phone: ""});
-    }
-
     function toogleEditing(){
         setIsEditing(!isEditing);
     }
 
+    function reset(){
+        dispatch({
+            type: 'reseted'
+        })
+    }
+
     return(
-        <ContactContext.Provider value={{contact, isEditing}}>
-            <ContactDispatchContext.Provider value={{setContact, toogleEditing, reset}}>
+        <ContactContext.Provider value={{state, isEditing}}>
+            <ContactDispatchContext.Provider value={{dispatch, toogleEditing, reset}}>
                 {children}
             </ContactDispatchContext.Provider>
         </ContactContext.Provider>
@@ -42,14 +44,19 @@ export const ContactProvider = ({ children }) => {
     )
 }
 
-const contactReducer = (draft, action) => {
+const contactReducer = (state, action) => {
     switch (action.type) {
-        case 'changed':
-            draft[action.payload.name] = action.payload.value;
-            break;
+        case 'changed': {
+            return {
+                ...state,
+                [action.payload.name]: action.payload.value
+            }
+        }
         case 'setted':{
-            draft = action.payload.contact;
-            break;
+            return action.payload.contact;
+        }
+        case 'reseted':{
+            return initialState;
         }
         default:
             break;

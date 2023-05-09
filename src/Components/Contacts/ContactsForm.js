@@ -1,4 +1,4 @@
-import { useEffect, forwardRef, useState } from 'react';
+import { forwardRef } from 'react';
 import { useContactsDispatch } from './ContactsContext';
 import { useContact, useContactDispatch } from '../ContactContext';
 
@@ -6,15 +6,13 @@ export const ContactsForm = forwardRef((props, ref) => {
 
     const [ formRef, inputRef] = ref;
     const { createContact, updateContact } = useContactsDispatch();
-    const {contact, isEditing} = useContact();
-    const {setContact, toogleEditing, reset} = useContactDispatch();
+    const { state, isEditing} = useContact();
+    const contact = state;
+    const {dispatch, toogleEditing, reset} = useContactDispatch();
     
     function change(e){
         const {name, value} = e.target;
-        setContact({
-            ...contact,
-            [name]: value
-        })
+        dispatch({type: 'changed', payload: {name, value}});
     }
     
     return (
@@ -33,7 +31,7 @@ export const ContactsForm = forwardRef((props, ref) => {
             </div>
             {isEditing &&
                 <button type="button" className="btn btn-primary w-100 mb-1"
-                    onClick={() => {updateContact(contact); toogleEditing(); reset()}}>
+                    onClick={() => {updateContact(contact); toogleEditing(); reset();}}>
                         Update
                 </button>}
             {isEditing &&
@@ -43,7 +41,7 @@ export const ContactsForm = forwardRef((props, ref) => {
                 </button>}
             {!isEditing &&
                 <button type="button" className="btn btn-primary w-100 mb-1"
-                    onClick={() => {createContact(contact); reset()}}>
+                    onClick={() => {createContact(contact); reset();}}>
                         Add
                 </button>}
         </form>
