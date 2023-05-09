@@ -2,11 +2,14 @@ import { useContact, useContactDispatch } from "../../ContactContext";
 import { useContacts, useContactsDispatch } from "../ContactsContext";
 export default function Tile({values, onEditAnimation}) {
     const {isEditing} = useContact();
-    const {setContact, toogleEditing} = useContactDispatch();
+    const {setContact, toogleEditing, dispatch} = useContactDispatch();
     const { deleteContact } = useContactsDispatch();
 
     function edit(){
-        setContact(values);
+        dispatch({
+            type: 'setted',
+            payload: {contact: values}
+        })
     }
 
     return(
